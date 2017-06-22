@@ -5,11 +5,11 @@ nginx:
     - php
   ports:
     - "80:80"
+    - "81:81"
 php:
   build: images/php
   volumes:
     - ./images/php:/var/www/html
-  working_dir: /var/www/html/public
   command: php-fpm
   links:
     - db
@@ -24,8 +24,8 @@ php:
     APP_FALLBACK_LOCALE: en
     DB_CONNECTION: mysql
     DB_HOST: db
-    DB_DATABASE: lumen
-    DB_USERNAME: lumen
+    DB_DATABASE: lumen_db
+    DB_USERNAME: root
     DB_PASSWORD: secret
     MEMCACHED_HOST: cache
     CACHE_DRIVER: memcached
@@ -34,9 +34,9 @@ db:
   ports:
     - "3306:3306"
   environment:
-    MYSQL_ROOT_PASSWORD: secret
-    MYSQL_DATABASE: lumen
-    MYSQL_USER: lumen
-    MYSQL_PASSWORD: secret
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: lumen_db
+    MYSQL_USER: root
+    MYSQL_PASSWORD: root
 cache:
   image: memcached
